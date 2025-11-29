@@ -49,7 +49,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="w-full max-w-4xl mx-auto px-4">
       {/* Image Preview */}
       {image && (
         <div className="mb-2 flex items-center gap-2 animate-fadeIn">
@@ -57,43 +57,42 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <img 
               src={image} 
               alt="Preview" 
-              className="h-20 w-20 object-cover rounded-lg border border-gray-600" 
+              className="h-16 w-16 object-cover rounded border border-gray-200 grayscale" 
             />
             <button
               onClick={clearImage}
-              className="absolute -top-2 -right-2 bg-gray-700 text-white rounded-full p-1 shadow-lg hover:bg-red-500 transition-colors"
+              className="absolute -top-2 -right-2 bg-black text-white rounded-full p-0.5 shadow hover:bg-gray-800 transition-colors"
             >
-              <span className="material-icons text-sm">close</span>
+              <span className="material-icons text-xs">close</span>
             </button>
           </div>
-          <span className="text-xs text-gray-400">Image attached</span>
         </div>
       )}
 
-      <div className="relative flex flex-col gap-2 bg-gray-800/80 backdrop-blur-md rounded-2xl border border-gray-700 p-2 shadow-2xl">
+      <div className="relative flex flex-col gap-2 bg-white rounded-xl border border-gray-200 p-2 shadow-sm focus-within:ring-1 focus-within:ring-gray-200 transition-all">
         
         {/* Text Area */}
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Share your thought or topic..."
-          className="w-full bg-transparent text-gray-100 placeholder-gray-500 px-3 py-2 focus:outline-none resize-none min-h-[50px] max-h-[150px] scrollbar-hide"
+          placeholder="Type a message..."
+          className="w-full bg-transparent text-gray-900 placeholder-gray-400 px-3 py-2 focus:outline-none resize-none min-h-[48px] max-h-[150px] scrollbar-hide text-base"
           rows={1}
           disabled={isLoading}
         />
 
         {/* Toolbar */}
-        <div className="flex justify-between items-center px-2 pb-1">
+        <div className="flex justify-between items-center px-1 pb-1">
           <div className="flex items-center gap-2">
             {/* Image Upload Button */}
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="p-2 text-gray-400 hover:text-gray-100 hover:bg-gray-700 rounded-full transition-all"
+              className="p-1.5 text-gray-400 hover:text-black hover:bg-gray-50 rounded-md transition-all"
               title="Upload Image"
               disabled={isLoading}
             >
-              <span className="material-icons">add_photo_alternate</span>
+              <span className="material-icons text-xl">add_photo_alternate</span>
             </button>
             <input
               type="file"
@@ -106,15 +105,15 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             {/* Thinking Mode Toggle */}
             <button
               onClick={() => setIsThinkingEnabled(!isThinkingEnabled)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all border ${
                 isThinkingEnabled
-                  ? 'bg-indigo-900/50 text-indigo-300 border-indigo-500/50 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
-                  : 'bg-gray-800 text-gray-500 border-gray-700 hover:border-gray-600'
+                  ? 'bg-black text-white border-black'
+                  : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
               }`}
-              title="Toggle Deep Thinking Mode (Gemini 3.0 Pro)"
+              title="Toggle Deep Thinking Mode"
               disabled={isLoading}
             >
-              <span className="material-icons text-[16px]">psychology</span>
+              <span className="material-icons text-[14px]">psychology</span>
               {isThinkingEnabled ? 'Thinking On' : 'Thinking Off'}
             </button>
           </div>
@@ -125,14 +124,14 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             disabled={!input.trim() && !image || isLoading}
             className={`p-2 rounded-full flex items-center justify-center transition-all ${
               !input.trim() && !image || isLoading
-                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                : 'bg-gray-100 text-gray-900 hover:bg-white shadow-lg shadow-white/10'
+                ? 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                : 'bg-black text-white hover:bg-gray-800 shadow-sm'
             }`}
           >
             {isLoading ? (
-               <div className="w-5 h-5 border-2 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
+               <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
             ) : (
-               <span className="material-icons">arrow_upward</span>
+               <span className="material-icons text-lg">arrow_upward</span>
             )}
           </button>
         </div>
@@ -140,8 +139,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       
       {/* Footer Info */}
       <div className="text-center mt-3">
-        <p className="text-[10px] text-gray-500">
-          Powered by Gemini 3.0 Pro Preview • The Insight Engine
+        <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+          The Insight Engine • Powered by Gemini 3.0 Pro
         </p>
       </div>
     </div>

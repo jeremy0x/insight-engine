@@ -14,7 +14,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       <React.Fragment key={i}>
         {line.split(/(\*\*.*?\*\*)/).map((part, j) => {
           if (part.startsWith('**') && part.endsWith('**')) {
-            return <strong key={j} className="font-bold text-white">{part.slice(2, -2)}</strong>;
+            return <strong key={j} className={`font-semibold ${isUser ? 'text-white' : 'text-black'}`}>{part.slice(2, -2)}</strong>;
           }
           return <span key={j}>{part}</span>;
         })}
@@ -24,47 +24,47 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   };
 
   return (
-    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-6 group`}>
+    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} group animate-fadeIn`}>
       <div className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
         
         {/* Avatar / Name */}
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center gap-2 mb-1.5">
           {isUser ? (
-             <span className="text-xs font-medium text-gray-400">You</span>
+             <span className="text-[10px] uppercase tracking-wider font-semibold text-gray-400">You</span>
           ) : (
-             <span className="text-xs font-medium text-purple-400">Alex • Host</span>
+             <span className="text-[10px] uppercase tracking-wider font-semibold text-gray-900">Alex</span>
           )}
         </div>
 
         {/* Bubble */}
         <div
-          className={`px-5 py-4 rounded-2xl shadow-sm text-sm md:text-base leading-relaxed ${
+          className={`px-5 py-3.5 rounded-lg text-sm md:text-base leading-relaxed shadow-sm ${
             isUser
-              ? 'bg-gray-800 text-gray-100 rounded-tr-sm border border-gray-700'
-              : 'bg-gradient-to-br from-indigo-900/40 to-gray-900 text-gray-100 rounded-tl-sm border border-indigo-900/30'
+              ? 'bg-black text-white'
+              : 'bg-white text-gray-900 border border-gray-200'
           }`}
         >
           {/* Attached Image Display */}
           {message.image && (
-            <div className="mb-3 rounded-lg overflow-hidden border border-gray-600/50">
+            <div className="mb-3 rounded overflow-hidden border border-gray-200">
               <img 
                 src={message.image} 
                 alt="User uploaded content" 
-                className="max-h-64 object-cover w-full" 
+                className="max-h-64 object-cover w-full grayscale-[20%]" 
               />
             </div>
           )}
 
           {/* Text Content */}
-          <div className="whitespace-pre-wrap text-gray-200">
+          <div className="whitespace-pre-wrap">
             {formatText(message.text)}
           </div>
           
           {/* Thinking Indicator for historical messages (visual flourish) */}
           {message.isThinking && !isUser && (
-             <div className="mt-2 flex items-center gap-1.5 text-xs text-purple-300/60">
-                <span className="material-icons text-[14px]">psychology</span>
-                <span>Deep Thought Analysis</span>
+             <div className="mt-3 pt-2 border-t border-gray-100 flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gray-400">
+                <span className="material-icons text-[12px]">psychology</span>
+                <span>Analyzed with Thought</span>
              </div>
           )}
         </div>

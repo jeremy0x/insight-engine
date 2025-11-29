@@ -49,8 +49,7 @@ const App: React.FC = () => {
 
     try {
       const responseText = await generateResponse(
-        messages, // Pass history excluding the one we just added (handled inside service by mapping) - wait, service maps the passed array. We need to pass the *current* messages state which doesn't have the new one yet? No, setState is async. 
-        // Better: Pass 'messages' (current state) as history, and 'input'/'image' as current turn.
+        messages, 
         input,
         image,
         isThinkingEnabled
@@ -77,24 +76,23 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#111827] text-gray-200 overflow-hidden font-sans">
+    <div className="flex flex-col h-screen bg-white text-gray-900 overflow-hidden font-sans tracking-tight">
       
       {/* Header */}
-      <header className="flex-none p-4 md:p-6 border-b border-gray-800 bg-[#111827]/80 backdrop-blur-sm z-10">
+      <header className="flex-none p-4 md:p-6 border-b border-gray-200 bg-white/80 backdrop-blur-sm z-10">
         <div className="max-w-4xl mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-             <span className="material-icons text-white">graphic_eq</span>
+          <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shadow-sm">
+             <span className="material-icons text-white text-sm">graphic_eq</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-white">The Insight Engine</h1>
-            <p className="text-xs text-gray-400 font-medium">Hosted by Alex (AI)</p>
+            <h1 className="text-lg font-bold tracking-tighter text-black">The Insight Engine</h1>
           </div>
         </div>
       </header>
 
       {/* Chat Area */}
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="max-w-4xl mx-auto space-y-4 pb-20">
+        <div className="max-w-4xl mx-auto space-y-6 pb-20">
           {messages.map((msg) => (
             <ChatMessage key={msg.id} message={msg} />
           ))}
@@ -102,14 +100,14 @@ const App: React.FC = () => {
           {/* Loading Indicator */}
           {isLoading && (
             <div className="flex justify-start mb-6 animate-pulse">
-              <div className="bg-gray-800/50 px-5 py-4 rounded-2xl rounded-tl-sm border border-gray-700/50 flex items-center gap-3">
+              <div className="px-5 py-4 rounded-2xl rounded-tl-sm border border-gray-100 flex items-center gap-3">
                  <div className="flex gap-1">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"></div>
                  </div>
-                 <span className="text-xs text-gray-400 font-medium">
-                   {isThinkingEnabled ? 'Alex is thinking deeply...' : 'Alex is responding...'}
+                 <span className="text-xs text-gray-500 font-medium">
+                   {isThinkingEnabled ? 'Thinking deeply...' : 'Responding...'}
                  </span>
               </div>
             </div>
@@ -120,8 +118,8 @@ const App: React.FC = () => {
       </main>
 
       {/* Input Area */}
-      <footer className="flex-none bg-[#111827] z-20">
-         <div className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-2"></div>
+      <footer className="flex-none bg-white z-20 pb-4">
+         <div className="h-px bg-gray-100 mb-4"></div>
          <ChatInput 
             input={input}
             setInput={setInput}
